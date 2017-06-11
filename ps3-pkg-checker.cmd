@@ -27,6 +27,7 @@ set xml="%binPath%\xml.exe"
 
 set titleID=XXXX00000
 set isRegion=0
+set padding=0
 
 set prefixURL=https://
 set serverA=%prefixURL%a0.ww.np.dl.playstation.net/tpl/np/%titleID%/%titleID%-ver.xml
@@ -133,9 +134,39 @@ echo Check All %isRegion% Title IDs
 echo.
 echo.
 
-pause
+::pause
 
-set titleID=BLES01807
+if %isRegion%==USA set titleIDRegion=BLUS
+
+set /a titleIDNumber=%titleIDNumber%+1
+
+setlocal ENABLEDELAYEDEXPANSION
+
+for %%a in (%titleIDNumber%) do (
+    for /f "tokens=1-4" %%F in ("%%a") do (
+	   echo a: %%a
+	   echo F: %%F
+	   set /a num=%%F
+       set zeros=
+	   echo num: !num!
+       if !num! lss 10000 set zeros=0
+       if !num! lss 1000 set zeros=00
+       if !num! lss 100 set zeros=000
+       if !num! lss 10 set zeros=0000
+       set "padding=!zeros!%%F"
+       echo !padding!>"%temp%\padding.tmp"
+    )
+)
+
+endlocal
+
+set /p padding=<"%temp%\padding.tmp"
+
+set titleID=%titleIDRegion%%padding%
+
+echo %titleID%
+
+pause
 
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
@@ -197,7 +228,7 @@ del /f /q "%dumpPath%\%titleID%.xml"
 pause
 
 
-goto start
+goto region
 
 
 
