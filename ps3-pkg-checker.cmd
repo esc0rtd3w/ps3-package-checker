@@ -26,6 +26,8 @@ set wget="%binPath%\wget.exe"
 set xml="%binPath%\xml.exe"
 
 set titleID=XXXX00000
+set titleIDRegionDisc=BXXX
+set titleIDRegionPSN=NPXX
 set isRegion=0
 set padding=0
 
@@ -34,6 +36,9 @@ set serverA=%prefixURL%a0.ww.np.dl.playstation.net/tpl/np/%titleID%/%titleID%-ve
 set serverB=%prefixURL%b0.ww.np.dl.playstation.net/tppkg/np/%titleID%/%titleID%-ver.xml
 set userAgent=--user-agent="Mozilla/5.0 (PLAYSTATION 3; 4.81)"
 set disableCertCheck=--no-check-certificate
+
+set isLoop=0
+set return=start
 
 
 :start
@@ -134,26 +139,26 @@ echo Check All %isRegion% Title IDs
 echo.
 echo.
 
-::pause
+set isLoop=1
+set return=region
 
-if %isRegion%==USA set titleIDRegion=BLUS
+if %isRegion%==USA set titleIDRegionDisc=BLUS
+if %isRegion%==USA set titleIDRegionPSN=NPUB
+if %isRegion%==USA set titleIDNumber=30000
 
-set /a titleIDNumber=%titleIDNumber%+1
+if %isLoop%==1 set /a titleIDNumber=%titleIDNumber%+1
 
 setlocal ENABLEDELAYEDEXPANSION
 
 for %%a in (%titleIDNumber%) do (
     for /f "tokens=1-4" %%F in ("%%a") do (
-	   echo a: %%a
-	   echo F: %%F
 	   set /a num=%%F
        set zeros=
-	   echo num: !num!
        if !num! lss 10000 set zeros=0
        if !num! lss 1000 set zeros=00
        if !num! lss 100 set zeros=000
        if !num! lss 10 set zeros=0000
-       set "padding=!zeros!%%F"
+       set "padding=!zeros!"
        echo !padding!>"%temp%\padding.tmp"
     )
 )
@@ -162,11 +167,11 @@ endlocal
 
 set /p padding=<"%temp%\padding.tmp"
 
-set titleID=%titleIDRegion%%padding%
+set titleID=%titleIDRegionDisc%%padding%%titleIDNumber%
 
 echo %titleID%
-
-pause
+echo.
+::pause
 
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
@@ -225,10 +230,11 @@ del /f /q "%dumpPath%\%titleID%.xml"
 )
 
 
-pause
+::pause
 
 
-goto region
+if %isLoop%==0 goto start
+if %isLoop%==1 goto %return%
 
 
 
