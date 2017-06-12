@@ -135,8 +135,6 @@ if not exist "%dumpPath%" mkdir "%dumpPath%"
 goto setServer
 
 
-:: Region Start
-if %isRegion%==USA set titleIDNumber=30000
 
 :region
 cls
@@ -144,8 +142,13 @@ echo Check All %isRegion% Title IDs
 echo.
 echo.
 
+:: Region Start
+if %isRegion%==USA set titleIDNumber=30000
+
 set isLoop=1
-set return=region
+set return=regionL
+
+:regionL
 
 if %isRegion%==USA set titleIDRegionDisc=BLUS
 if %isRegion%==USA set titleIDRegionPSN=NPUB
