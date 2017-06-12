@@ -144,7 +144,7 @@ echo.
 
 :: Region Start
 if %isRegion%==JPN set dumpPath=%root%\dump\JPN
-if %isRegion%==JPN set titleIDNumber=50000
+if %isRegion%==JPN set titleIDNumber=55000
 ::if %isRegion%==JPN set titleIDRegionDisc=BCJS
 if %isRegion%==JPN set titleIDRegionDisc=BLJM
 if %isRegion%==JPN set titleIDRegionPSN=NPJB
