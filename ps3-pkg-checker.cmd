@@ -143,30 +143,35 @@ echo.
 echo.
 
 :: Region Start
+if %isRegion%==JPN set dumpPath=%root%\dump\JPN
 if %isRegion%==JPN set titleIDNumber=50000
 ::if %isRegion%==JPN set titleIDRegionDisc=BCJS
 if %isRegion%==JPN set titleIDRegionDisc=BLJM
 if %isRegion%==JPN set titleIDRegionPSN=NPJB
 ::if %isRegion%==JPN set titleIDRegionPSN=NPJA
 
+if %isRegion%==EUR set dumpPath=%root%\dump\EUR
 if %isRegion%==EUR set titleIDNumber=00000
 ::if %isRegion%==EUR set titleIDRegionDisc=BCES
 if %isRegion%==EUR set titleIDRegionDisc=BLES
 if %isRegion%==EUR set titleIDRegionPSN=NPEB
 ::if %isRegion%==EUR set titleIDRegionPSN=NPEA
 
+if %isRegion%==USA set dumpPath=%root%\dump\USA
 if %isRegion%==USA set titleIDNumber=30000
 ::if %isRegion%==USA set titleIDRegionDisc=BCUS
 if %isRegion%==USA set titleIDRegionDisc=BLUS
 if %isRegion%==USA set titleIDRegionPSN=NPUB
 ::if %isRegion%==USA set titleIDRegionPSN=NPUA
 
+if %isRegion%==HK set dumpPath=%root%\dump\HK
 if %isRegion%==HK set titleIDNumber=20000
 ::if %isRegion%==HK set titleIDRegionDisc=BCKS
 if %isRegion%==HK set titleIDRegionDisc=BLKS
 if %isRegion%==HK set titleIDRegionPSN=NPKB
 ::if %isRegion%==HK set titleIDRegionPSN=NPKA
 
+if %isRegion%==ASIA set dumpPath=%root%\dump\ASIA
 if %isRegion%==ASIA set titleIDNumber=50000
 ::if %isRegion%==ASIA set titleIDRegionDisc=BCAS
 if %isRegion%==ASIA set titleIDRegionDisc=BLAS
