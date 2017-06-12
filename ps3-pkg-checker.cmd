@@ -57,25 +57,34 @@ cls
 echo Choose an option and press ENTER:
 echo.
 echo.
+%cocolor% 0a
 echo 1) Check All Possible Title IDs
 echo.
+%cocolor% 0b
 echo 2) Check All PSN Title IDs
 echo 3) Check All Disc Title IDs
 echo.
+%cocolor% 05
 echo 4) Check All JAPAN Title IDs [BLJM/NPJB]
 echo 4a) Check All JAPAN Title IDs [BLJS/NPJA]
 echo 4b) Check All JAPAN Title IDs [BCJS]
+%cocolor% 09
 echo 5) Check All USA Title IDs [BLUS/NPUB]
 echo 5a) Check All USA Title IDs [BCUS/NPUA]
+%cocolor% 06
 echo 6) Check All EUROPE Title IDs [BLES/NPEB]
 echo 6a) Check All EUROPE Title IDs [BCES/NPEA]
+%cocolor% 08
 echo 7) Check All ASIA Title IDs [BLAS/NPHB]
 echo 7a) Check All ASIA Title IDs [BCAS/NPHA]
+%cocolor% 07
 echo 8) Check All HK Title IDs [BLKS/NPKB]
 echo 8a) Check All HK Title IDs [BCKS/NPKA]
 echo.
+%cocolor% 0d
 echo 9) Enter Custom Title ID
 echo.
+%cocolor% 0e
 echo X) Exit Menu
 echo.
 
