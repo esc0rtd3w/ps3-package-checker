@@ -161,6 +161,9 @@ pause
 
 set titleID=BLES01807
 
+set isLoop=0
+set return=start
+
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
 goto setServer
@@ -176,6 +179,9 @@ pause
 
 set titleID=BLES01807
 
+set isLoop=0
+set return=start
+
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
 goto setServer
@@ -190,6 +196,9 @@ echo.
 pause
 
 set titleID=BLES01807
+
+set isLoop=0
+set return=start
 
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
@@ -278,6 +287,9 @@ echo.
 
 set /p titleID=
 
+set isLoop=0
+set return=custom
+
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
 goto setServer
@@ -285,8 +297,8 @@ goto setServer
 
 
 :setServer
-set serverA=%prefixURL%a0.ww.np.dl.playstation.net/tpl/np/%titleID%/%titleID%-ver.xml-ver.xml
-set serverB=%prefixURL%b0.ww.np.dl.playstation.net/tppkg/np/%titleID%/%titleID%-ver.xml-ver.xml
+set serverA=%prefixURL%a0.ww.np.dl.playstation.net/tpl/np/%titleID%/%titleID%-ver.xml
+set serverB=%prefixURL%b0.ww.np.dl.playstation.net/tppkg/np/%titleID%/%titleID%-ver.xml
 
 goto dlPkg
 
