@@ -14,6 +14,8 @@ title %titleText%
 
 color 0e
 
+set colorGlobal=0e
+
 set waitTime=3
 set wait=ping -n %waitTime% 127.0.0.1
 
@@ -290,6 +292,8 @@ set /p titleID=
 set isLoop=0
 set return=custom
 
+set dumpPath=%root%\dump\CUSTOM
+
 if not exist "%dumpPath%" mkdir "%dumpPath%"
 
 goto setServer
@@ -304,7 +308,18 @@ goto dlPkg
 
 
 :dlPkg
+cls
+%cocolor% 0b
+echo Press CTRL+C To Interrupt The Current Operation
+%cocolor% 0e
+echo.
+echo.
+echo Checking %titleID%.xml....
+echo.
+echo.
+
 %wget% %disableCertCheck% %userAgent% -O "%dumpPath%\%titleID%.xml" %serverA%
+
 
 goto chkBlank
 
