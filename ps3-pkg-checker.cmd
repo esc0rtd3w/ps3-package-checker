@@ -28,6 +28,8 @@ set xml="%binPath%\xml.exe"
 set titleID=XXXX00000
 set titleIDRegionDisc=BXXX
 set titleIDRegionPSN=NPXX
+set titleIDNumber=00000
+set titleIDNumberStart=0
 set isRegion=0
 set padding=0
 
@@ -133,6 +135,9 @@ if not exist "%dumpPath%" mkdir "%dumpPath%"
 goto setServer
 
 
+:: Region Start
+if %isRegion%==USA set titleIDNumber=30000
+
 :region
 cls
 echo Check All %isRegion% Title IDs
@@ -144,16 +149,16 @@ set return=region
 
 if %isRegion%==USA set titleIDRegionDisc=BLUS
 if %isRegion%==USA set titleIDRegionPSN=NPUB
-if %isRegion%==USA set titleIDNumber=30000
 
 if %isLoop%==1 set /a titleIDNumber=%titleIDNumber%+1
 
 setlocal ENABLEDELAYEDEXPANSION
 
 for %%a in (%titleIDNumber%) do (
-    for /f "tokens=1-4" %%F in ("%%a") do (
+    for /f "tokens=1-5" %%F in ("%%a") do (
 	   set /a num=%%F
        set zeros=
+       if !num! gtr 10000 set zeros=none
        if !num! lss 10000 set zeros=0
        if !num! lss 1000 set zeros=00
        if !num! lss 100 set zeros=000
@@ -168,6 +173,7 @@ endlocal
 set /p padding=<"%temp%\padding.tmp"
 
 set titleID=%titleIDRegionDisc%%padding%%titleIDNumber%
+if %padding%==none set titleID=%titleIDRegionDisc%%titleIDNumber%
 
 echo %titleID%
 echo.
