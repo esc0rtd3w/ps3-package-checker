@@ -3,11 +3,11 @@
 
 :reset
 :: Change terminal size
-mode con lines=40
+mode con lines=42
 
 
-set scriptVersion=0.2
-set titleText=PS3 Package Checker v%scriptVersion%                      esc0rtd3w 2017
+set scriptVersion=0.3
+set titleText=PS3 Package Checker v%scriptVersion%             esc0rtd3w 2017  
 
 title %titleText%
 
@@ -39,6 +39,7 @@ set titleIDNumber=00000
 set titleIDNumberStart=0
 set titleIDNumberMin=00000
 set titleIDNumberMax=99999
+set minMaxOverride=0
 set isRegion=0
 set padding=0
 
@@ -55,7 +56,7 @@ set return=start
 
 
 :start
-title %titleText%
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
 set titleChoice=99
 
 cls
@@ -104,14 +105,23 @@ echo.
 echo C) Enter Custom Title ID
 echo.
 %cocolor% 0e
+echo S) Settings
+echo.
+%cocolor% 0e
 echo X) Exit Menu
 echo.
 
 set /p titleChoice=
 
 
+:skipMenu
+
+
 if %titleChoice%==C goto custom
 if %titleChoice%==c goto custom
+
+if %titleChoice%==S goto msettings
+if %titleChoice%==s goto msettings
 
 if %titleChoice%==X goto end
 if %titleChoice%==x goto end
@@ -151,9 +161,87 @@ if %titleChoice%==23 set isRegion=HK&&set titleIDRegionCode=NPKB&&goto region
 if %titleChoice%==24 set isRegion=HK&&set titleIDRegionCode=NPKA&&goto region
 
 
+:: Safety Net
+goto start
+
+
+:msettings
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+set settingsChoice=99
+
+cls
+echo Choose an option and press ENTER:
+echo.
+echo.
+%cocolor% 0a
+echo 1) Change Minimum Value
+echo.
+%cocolor% 0b
+echo 2) Change Maximum Value
+echo.
+echo.
+%cocolor% 0e
+echo B) Go Back
+echo.
+echo X) Exit Menu
+echo.
+
+set /p settingsChoice=
+
+
+if %settingsChoice%==B goto start
+if %settingsChoice%==b goto start
+
+if %settingsChoice%==X goto end
+if %settingsChoice%==x goto end
+
+if %settingsChoice%==1 goto valueMin
+if %settingsChoice%==2 goto valueMax
+
+if %settingsChoice% gtr 2 goto msettings
+
+:: Safety Net
+goto msettings
+
+
+
+:valueMin
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
+cls
+echo Set Minimum Value and press ENTER:
+echo.
+echo.
+
+set /p titleIDNumberMin=
+
+if %titleIDNumberMin% gtr 99999 goto valueMin
+
+goto msettings
+
+
+
+:valueMax
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
+cls
+echo Set Maximum Value and press ENTER:
+echo.
+echo.
+
+set /p titleIDNumberMax=
+
+if %titleIDNumberMax% gtr 99999 goto valueMax
+
+goto msettings
+
+
+
 
 
 :all
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
 cls
 echo Check All Possible Title IDs
 echo.
@@ -172,6 +260,8 @@ goto setServer
 
 
 :psn
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
 cls
 echo Check All PSN Title IDs
 echo.
@@ -190,6 +280,8 @@ goto setServer
 
 
 :disc
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
 cls
 echo Check All Disc Title IDs
 echo.
@@ -209,6 +301,8 @@ goto setServer
 
 
 :region
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
 cls
 echo Check All %isRegion% Title IDs
 echo.
@@ -245,9 +339,12 @@ set isLoop=1
 set return=regionL
 
 :regionL
-if %titleIDNumber%==%titleIDNumberMax% goto region
+if %titleIDNumber%==%titleIDNumberMax% goto start
+if %titleIDNumber%==%titleIDNumberMax% set isLoop=0
 
 if %isLoop%==1 set /a titleIDNumber=%titleIDNumber%+1
+
+::title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
 
 setlocal ENABLEDELAYEDEXPANSION
 
@@ -282,6 +379,8 @@ goto setServer
 
 
 :custom
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
 cls
 echo Enter Custom Title ID and press ENTER:
 echo.
@@ -308,9 +407,16 @@ goto dlPkg
 
 
 :dlPkg
+title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+
 cls
 %cocolor% 0b
 echo Press CTRL+C To Interrupt The Current Operation
+%cocolor% 0a
+echo.
+echo Current Title ID Number: %titleIDNumber%
+%cocolor% 0c
+echo Maximum Title ID Number: %titleIDNumberMax%
 %cocolor% 0e
 echo.
 echo.
@@ -349,7 +455,7 @@ del /f /q "%dumpPath%\%titleID%.xml"
 )
 
 
-
+::if %titleIDNumber%==%titleIDNumberMax% set return=start&&set isLoop=0
 
 if %isLoop%==0 goto start
 if %isLoop%==1 goto %return%
