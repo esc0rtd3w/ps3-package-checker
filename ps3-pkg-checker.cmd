@@ -78,7 +78,9 @@ echo 7) Check/Dump All JAPAN Title IDs [BLJS]
 echo 8) Check/Dump All JAPAN Title IDs [NPJA]
 echo.
 %cocolor% 09
+:: BCUS00236 -> BCUS99247
 echo 9) Check/Dump All USA Title IDs [BCUS]
+:: BLUS00759 -> BLUS83009
 echo 10) Check/Dump All USA Title IDs [BLUS]
 echo 11) Check/Dump All USA Title IDs [NPUB]
 echo 12) Check/Dump All USA Title IDs [NPUA]
@@ -86,7 +88,9 @@ echo.
 %cocolor% 06
 echo 13) Check/Dump All EUROPE Title IDs [BCES]
 echo 14) Check/Dump All EUROPE Title IDs [BLES]
+:: NPEB00001 -> NPEB90464
 echo 15) Check/Dump All EUROPE Title IDs [NPEB]
+:: NPEA00002 -> NPEA90112
 echo 16) Check/Dump All EUROPE Title IDs [NPEA]
 echo.
 %cocolor% 08
@@ -140,15 +144,18 @@ if %titleChoice%==6 set isRegion=JPN&&set titleIDRegionCode=NPJB&&goto region
 if %titleChoice%==7 set isRegion=JPN&&set titleIDRegionCode=BLJS&&goto region
 if %titleChoice%==8 set isRegion=JPN&&set titleIDRegionCode=NPJA&&goto region
 
-if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&goto region
-if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&goto region
+if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&set titleIDNumberMin=98081&&set titleIDNumberMax=99247&&goto region
+if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=30001&&set titleIDNumberMax=31597&&goto region
+::if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=41003&&set titleIDNumberMax=41045&&goto region
 if %titleChoice%==11 set isRegion=USA&&set titleIDRegionCode=NPUB&&goto region
 if %titleChoice%==12 set isRegion=USA&&set titleIDRegionCode=NPUA&&goto region
 
 if %titleChoice%==13 set isRegion=EUR&&set titleIDRegionCode=BCES&&goto region
 if %titleChoice%==14 set isRegion=EUR&&set titleIDRegionCode=BLES&&goto region
-if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region
-if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&goto region
+if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&goto region
+::if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=90003&&set titleIDNumberMax=90464&&goto region
+if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&goto region
+::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=90001&&set titleIDNumberMax=90112&&goto region
 
 if %titleChoice%==17 set isRegion=ASIA&&set titleIDRegionCode=BCAS&&goto region
 if %titleChoice%==18 set isRegion=ASIA&&set titleIDRegionCode=BLAS&&goto region
@@ -310,30 +317,27 @@ echo.
 
 :: Region Start
 if %isRegion%==JPN (
-set dumpPath=%root%\dump\JPN
-set titleIDNumber=55000
-set titleIDNumber2=60000
+set dumpPath=%root%\dump\JPN\%titleIDRegionCode%
 )
 
 if %isRegion%==EUR (
-set dumpPath=%root%\dump\EUR
-set titleIDNumber=00000
+set dumpPath=%root%\dump\EUR\%titleIDRegionCode%
 )
 
 if %isRegion%==USA (
-set dumpPath=%root%\dump\USA
-set titleIDNumber=30000
+set dumpPath=%root%\dump\USA\%titleIDRegionCode%
 )
 
 if %isRegion%==HK (
-set dumpPath=%root%\dump\HK
-set titleIDNumber=20000
+set dumpPath=%root%\dump\HK\%titleIDRegionCode%
 )
 
 if %isRegion%==ASIA (
-set dumpPath=%root%\dump\ASIA
-set titleIDNumber=50000
+set dumpPath=%root%\dump\ASIA\%titleIDRegionCode%
 )
+
+:: Set Starting Number as Minimum
+set titleIDNumber=%titleIDNumberMin%
 
 set isLoop=1
 set return=regionL
@@ -345,6 +349,8 @@ if %titleIDNumber%==%titleIDNumberMax% set isLoop=0
 if %isLoop%==1 set /a titleIDNumber=%titleIDNumber%+1
 
 ::title %titleText% [Min/Max = %titleIDNumberMin%/%titleIDNumberMax%]
+::echo %titleIDNumber%
+::pause
 
 setlocal ENABLEDELAYEDEXPANSION
 
