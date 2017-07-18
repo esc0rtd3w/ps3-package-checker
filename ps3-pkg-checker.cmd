@@ -6,7 +6,7 @@
 mode con lines=42
 
 
-set scriptVersion=0.3
+set scriptVersion=0.4
 set titleText=PS3 Package Checker v%scriptVersion%             esc0rtd3w 2017  
 
 title %titleText%
@@ -29,6 +29,7 @@ set updateListFail="%root%\dump\updateListFail.txt"
 
 set cocolor="%binPath%\cocolor.exe"
 set wget="%binPath%\wget.exe"
+set wgetQuiet="%binPath%\wget.exe" -q
 set xml="%binPath%\xml.exe"
 
 set titleID=XXXX00000
@@ -52,6 +53,7 @@ set userAgent=--user-agent="Mozilla/5.0 (PLAYSTATION 3; 4.81)"
 set disableCertCheck=--no-check-certificate
 
 set isLoop=0
+set prepareToLoop=0
 set return=start
 
 
@@ -64,11 +66,11 @@ echo Choose an option and press ENTER:
 echo.
 echo.
 %cocolor% 0a
-echo 1) Check/Dump All Possible Title IDs
+echo 1) Check/Dump All Possible Title IDs**
 echo.
 %cocolor% 0b
-echo 2) Check/Dump All PSN Title IDs
-echo 3) Check/Dump All Disc Title IDs
+echo 2) Check/Dump All PSN Title IDs**
+echo 3) Check/Dump All Disc Title IDs**
 echo.
 %cocolor% 05
 echo 4) Check/Dump All JAPAN Title IDs [BCJS]
@@ -87,6 +89,7 @@ echo 12) Check/Dump All USA Title IDs [NPUA]
 echo.
 %cocolor% 06
 echo 13) Check/Dump All EUROPE Title IDs [BCES]
+:: BLES00012 -> BLES82001
 echo 14) Check/Dump All EUROPE Title IDs [BLES]
 :: NPEB00001 -> NPEB90464
 echo 15) Check/Dump All EUROPE Title IDs [NPEB]
@@ -121,8 +124,8 @@ set /p titleChoice=
 :skipMenu
 
 
-if %titleChoice%==C goto custom
-if %titleChoice%==c goto custom
+if %titleChoice%==C set prepareToLoop=0&&goto custom
+if %titleChoice%==c set prepareToLoop=0&&goto custom
 
 if %titleChoice%==S goto msettings
 if %titleChoice%==s goto msettings
@@ -133,39 +136,39 @@ if %titleChoice%==x goto end
 if %titleChoice% gtr 24 goto start
 
 
-if %titleChoice%==1 goto all
+if %titleChoice%==1 set prepareToLoop=1&&goto all
 
-if %titleChoice%==2 goto psn
-if %titleChoice%==3 goto disc
+if %titleChoice%==2 set prepareToLoop=1&&goto psn
+if %titleChoice%==3 set prepareToLoop=1&&goto disc
 
-if %titleChoice%==4 set isRegion=JPN&&set titleIDRegionCode=BCJS&&goto region
-if %titleChoice%==5 set isRegion=JPN&&set titleIDRegionCode=BLJM&&goto region
-if %titleChoice%==6 set isRegion=JPN&&set titleIDRegionCode=NPJB&&goto region
-if %titleChoice%==7 set isRegion=JPN&&set titleIDRegionCode=BLJS&&goto region
-if %titleChoice%==8 set isRegion=JPN&&set titleIDRegionCode=NPJA&&goto region
+if %titleChoice%==4 set isRegion=JPN&&set titleIDRegionCode=BCJS&&set prepareToLoop=1&&goto region
+if %titleChoice%==5 set isRegion=JPN&&set titleIDRegionCode=BLJM&&set prepareToLoop=1&&goto region
+if %titleChoice%==6 set isRegion=JPN&&set titleIDRegionCode=NPJB&&set prepareToLoop=1&&goto region
+if %titleChoice%==7 set isRegion=JPN&&set titleIDRegionCode=BLJS&&set prepareToLoop=1&&goto region
+if %titleChoice%==8 set isRegion=JPN&&set titleIDRegionCode=NPJA&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&set titleIDNumberMin=98081&&set titleIDNumberMax=99247&&goto region
-if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=30001&&set titleIDNumberMax=31597&&goto region
-::if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=41003&&set titleIDNumberMax=41045&&goto region
-if %titleChoice%==11 set isRegion=USA&&set titleIDRegionCode=NPUB&&goto region
-if %titleChoice%==12 set isRegion=USA&&set titleIDRegionCode=NPUA&&goto region
+if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&set titleIDNumberMin=98081&&set titleIDNumberMax=99247&&set prepareToLoop=1&&goto region
+if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=30001&&set titleIDNumberMax=31597&&set prepareToLoop=1&&goto region
+::if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=41003&&set titleIDNumberMax=41045&&set prepareToLoop=1&&goto region
+if %titleChoice%==11 set isRegion=USA&&set titleIDRegionCode=NPUB&&set prepareToLoop=1&&goto region
+if %titleChoice%==12 set isRegion=USA&&set titleIDRegionCode=NPUA&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==13 set isRegion=EUR&&set titleIDRegionCode=BCES&&goto region
-if %titleChoice%==14 set isRegion=EUR&&set titleIDRegionCode=BLES&&goto region
-if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&goto region
-::if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=90003&&set titleIDNumberMax=90464&&goto region
-if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&goto region
-::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=90001&&set titleIDNumberMax=90112&&goto region
+if %titleChoice%==13 set isRegion=EUR&&set titleIDRegionCode=BCES&&set prepareToLoop=1&&goto region
+if %titleChoice%==14 set isRegion=EUR&&set titleIDRegionCode=BLES&&set titleIDNumberMin=00012&&set titleIDNumberMax=02245&&set prepareToLoop=1&&goto region
+if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&set prepareToLoop=1&&goto region
+::if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=90003&&set titleIDNumberMax=90464&&set prepareToLoop=1&&goto region
+if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&set prepareToLoop=1&&goto region
+::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=90001&&set titleIDNumberMax=90112&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==17 set isRegion=ASIA&&set titleIDRegionCode=BCAS&&goto region
-if %titleChoice%==18 set isRegion=ASIA&&set titleIDRegionCode=BLAS&&goto region
-if %titleChoice%==19 set isRegion=ASIA&&set titleIDRegionCode=NPHB&&goto region
-if %titleChoice%==20 set isRegion=ASIA&&set titleIDRegionCode=NPHA&&goto region
+if %titleChoice%==17 set isRegion=ASIA&&set titleIDRegionCode=BCAS&&set prepareToLoop=1&&goto region
+if %titleChoice%==18 set isRegion=ASIA&&set titleIDRegionCode=BLAS&&set prepareToLoop=1&&goto region
+if %titleChoice%==19 set isRegion=ASIA&&set titleIDRegionCode=NPHB&&set prepareToLoop=1&&goto region
+if %titleChoice%==20 set isRegion=ASIA&&set titleIDRegionCode=NPHA&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==21 set isRegion=HK&&set titleIDRegionCode=BCKS&&goto region
-if %titleChoice%==22 set isRegion=HK&&set titleIDRegionCode=BLKS&&goto region
-if %titleChoice%==23 set isRegion=HK&&set titleIDRegionCode=NPKB&&goto region
-if %titleChoice%==24 set isRegion=HK&&set titleIDRegionCode=NPKA&&goto region
+if %titleChoice%==21 set isRegion=HK&&set titleIDRegionCode=BCKS&&set prepareToLoop=1&&goto region
+if %titleChoice%==22 set isRegion=HK&&set titleIDRegionCode=BLKS&&set prepareToLoop=1&&goto region
+if %titleChoice%==23 set isRegion=HK&&set titleIDRegionCode=NPKB&&set prepareToLoop=1&&goto region
+if %titleChoice%==24 set isRegion=HK&&set titleIDRegionCode=NPKA&&set prepareToLoop=1&&goto region
 
 
 :: Safety Net
@@ -336,13 +339,30 @@ if %isRegion%==ASIA (
 set dumpPath=%root%\dump\ASIA\%titleIDRegionCode%
 )
 
+
+:: Force TitleID Values (Debug Only)
+set titleIDNumberMin=0
+set titleIDNumberMax=99999
+
 :: Set Starting Number as Minimum
 set titleIDNumber=%titleIDNumberMin%
 
-set isLoop=1
-set return=regionL
 
-:regionL
+if %prepareToLoop%==0 (
+set isLoop=0
+set return=setServer
+)
+
+if %prepareToLoop%==1 (
+set isLoop=1
+set return=doLoop
+)
+
+goto %return%
+
+
+
+:doLoop
 if %titleIDNumber%==%titleIDNumberMax% goto start
 if %titleIDNumber%==%titleIDNumberMax% set isLoop=0
 
@@ -375,8 +395,8 @@ set /p padding=<"%temp%\padding.tmp"
 set titleID=%titleIDRegionCode%%padding%%titleIDNumber%
 if %padding%==none set titleID=%titleIDRegionCode%%titleIDNumber%
 
-echo %titleID%
-echo.
+::echo %titleID%
+::echo.
 ::pause
 
 if not exist "%dumpPath%" mkdir "%dumpPath%"
@@ -391,11 +411,32 @@ cls
 echo Enter Custom Title ID and press ENTER:
 echo.
 echo.
+echo B) Go Back
+echo.
+echo X) Exit Menu
+echo.
 
-set /p titleID=
+set /p titleIDChoice=
 
+
+if %titleIDChoice%==B goto %return%
+if %titleIDChoice%==b goto %return%
+
+if %titleIDChoice%==X goto end
+if %titleIDChoice%==x goto end
+
+set titleID=%titleIDChoice%
+
+
+if %prepareToLoop%==0 (
 set isLoop=0
 set return=custom
+)
+
+if %prepareToLoop%==1 (
+set isLoop=1
+set return=doLoop
+)
 
 set dumpPath=%root%\dump\CUSTOM
 
@@ -420,17 +461,18 @@ cls
 echo Press CTRL+C To Interrupt The Current Operation
 %cocolor% 0a
 echo.
-echo Current Title ID Number: %titleIDNumber%
-%cocolor% 0c
-echo Maximum Title ID Number: %titleIDNumberMax%
-%cocolor% 0e
-echo.
-echo.
-echo Checking %titleID%.xml....
+echo Current Title ID: %titleID%
+%cocolor% 0d
+echo Maximum Title ID: %titleIDRegionCode%%titleIDNumberMax%
+::%cocolor% 0e
+::echo.
+::echo.
+::echo Checking %titleID%.xml....
 echo.
 echo.
 
-%wget% %disableCertCheck% %userAgent% -O "%dumpPath%\%titleID%.xml" %serverA%
+::%wget% %disableCertCheck% %userAgent% -O "%dumpPath%\%titleID%.xml" %serverA%
+%wgetQuiet% %disableCertCheck% %userAgent% -O "%dumpPath%\%titleID%.xml" %serverA%
 
 
 goto chkBlank
@@ -450,11 +492,19 @@ goto addList
 
 :addList
 if %isBlankXML%==0 (
+%cocolor% 0a
+echo.
+echo Writing %titleID%.xml....
+echo.
 echo %titleID%>>%updateListComplete%
 echo %titleID%>>%updateListActive%
 )
 
 if %isBlankXML%==1 (
+%cocolor% 0c
+echo.
+echo %titleID%.xml Is Not A Valid Title ID....
+echo.
 echo %titleID%>>%updateListComplete%
 echo %titleID%>>%updateListFail%
 del /f /q "%dumpPath%\%titleID%.xml"
