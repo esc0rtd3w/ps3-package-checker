@@ -3,7 +3,7 @@
 
 :reset
 :: Change terminal size
-mode con lines=42
+mode con lines=46
 
 
 set scriptVersion=0.4
@@ -108,6 +108,10 @@ echo 22) Check/Dump All HK Title IDs [BLKS]
 echo 23) Check/Dump All HK Title IDs [NPKB]
 echo 24) Check/Dump All HK Title IDs [NPKA]
 echo.
+%cocolor% 04
+echo 25) Check/Dump All HK Title IDs [NPIA]
+echo 26) Check/Dump All HK Title IDs [NPUO]
+echo.
 %cocolor% 0d
 echo C) Enter Custom Title ID
 echo.
@@ -133,7 +137,7 @@ if %titleChoice%==s goto msettings
 if %titleChoice%==X goto end
 if %titleChoice%==x goto end
 
-if %titleChoice% gtr 24 goto start
+if %titleChoice% gtr 26 goto start
 
 
 if %titleChoice%==1 set prepareToLoop=1&&goto all
@@ -169,6 +173,9 @@ if %titleChoice%==21 set isRegion=HK&&set titleIDRegionCode=BCKS&&set prepareToL
 if %titleChoice%==22 set isRegion=HK&&set titleIDRegionCode=BLKS&&set prepareToLoop=1&&goto region
 if %titleChoice%==23 set isRegion=HK&&set titleIDRegionCode=NPKB&&set prepareToLoop=1&&goto region
 if %titleChoice%==24 set isRegion=HK&&set titleIDRegionCode=NPKA&&set prepareToLoop=1&&goto region
+
+if %titleChoice%==25 set isRegion=INT&&set titleIDRegionCode=NPIA&&set prepareToLoop=1&&goto region
+if %titleChoice%==26 set isRegion=INT&&set titleIDRegionCode=NPUO&&set prepareToLoop=1&&goto region
 
 
 :: Safety Net
@@ -226,6 +233,7 @@ echo.
 set /p titleIDNumberMin=
 
 if %titleIDNumberMin% gtr 99999 goto valueMin
+set titleIDNumberMinCustom=%titleIDNumberMin%
 
 goto msettings
 
@@ -242,6 +250,7 @@ echo.
 set /p titleIDNumberMax=
 
 if %titleIDNumberMax% gtr 99999 goto valueMax
+set titleIDNumberMaxCustom=%titleIDNumberMax%
 
 goto msettings
 
@@ -339,6 +348,10 @@ if %isRegion%==ASIA (
 set dumpPath=%root%\dump\ASIA\%titleIDRegionCode%
 )
 
+if %isRegion%==INT (
+set dumpPath=%root%\dump\INT\%titleIDRegionCode%
+)
+
 
 :: Force TitleID Values (Debug Only)
 set titleIDNumberMin=0
@@ -346,6 +359,7 @@ set titleIDNumberMax=99999
 
 :: Set Starting Number as Minimum
 set titleIDNumber=%titleIDNumberMin%
+set titleIDNumberMax=%titleIDNumberMax%
 
 
 if %prepareToLoop%==0 (
