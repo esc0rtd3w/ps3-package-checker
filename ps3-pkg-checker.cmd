@@ -392,6 +392,7 @@ for %%a in (%titleIDNumber%) do (
     for /f "tokens=1-5" %%F in ("%%a") do (
 	   set /a num=%%F
        set zeros=
+       if !num! equ 10000 set zeros=none
        if !num! gtr 10000 set zeros=none
        if !num! lss 10000 set zeros=0
        if !num! lss 1000 set zeros=00
