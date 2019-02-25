@@ -109,8 +109,8 @@ echo 23) Check/Dump All HK Title IDs [NPKB]
 echo 24) Check/Dump All HK Title IDs [NPKA]
 echo.
 %cocolor% 04
-echo 25) Check/Dump All HK Title IDs [NPIA]
-echo 26) Check/Dump All HK Title IDs [NPUO]
+echo 25) Check/Dump All Internal Title IDs [NPIA]
+echo 26) Check/Dump All Internal Title IDs [NPUO]
 echo.
 %cocolor% 0d
 echo C) Enter Custom Title ID
