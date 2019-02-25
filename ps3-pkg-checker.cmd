@@ -6,8 +6,8 @@
 mode con lines=46
 
 
-set scriptVersion=0.4
-set titleText=PS3 Package Checker v%scriptVersion%             esc0rtd3w 2017  
+set scriptVersion=0.5
+set titleText=PS3 Package Checker v%scriptVersion%             esc0rtd3w 2019  
 
 title %titleText%
 
@@ -86,31 +86,31 @@ echo 9) Check/Dump All USA Title IDs [BCUS]
 echo 10) Check/Dump All USA Title IDs [BLUS]
 echo 11) Check/Dump All USA Title IDs [NPUB]
 echo 12) Check/Dump All USA Title IDs [NPUA]
+echo 13) Check/Dump All USA Title IDs [NPUO]
 echo.
 %cocolor% 06
-echo 13) Check/Dump All EUROPE Title IDs [BCES]
+echo 14) Check/Dump All EUROPE Title IDs [BCES]
 :: BLES00012 -> BLES82001
-echo 14) Check/Dump All EUROPE Title IDs [BLES]
+echo 15) Check/Dump All EUROPE Title IDs [BLES]
 :: NPEB00001 -> NPEB90464
-echo 15) Check/Dump All EUROPE Title IDs [NPEB]
+echo 16) Check/Dump All EUROPE Title IDs [NPEB]
 :: NPEA00002 -> NPEA90112
-echo 16) Check/Dump All EUROPE Title IDs [NPEA]
+echo 17) Check/Dump All EUROPE Title IDs [NPEA]
 echo.
 %cocolor% 08
-echo 17) Check/Dump All ASIA Title IDs [BCAS]
-echo 18) Check/Dump All ASIA Title IDs [BLAS]
-echo 19) Check/Dump All ASIA Title IDs [NPHB]
-echo 20) Check/Dump All ASIA Title IDs [NPHA]
+echo 18) Check/Dump All ASIA Title IDs [BCAS]
+echo 19) Check/Dump All ASIA Title IDs [BLAS]
+echo 20) Check/Dump All ASIA Title IDs [NPHB]
+echo 21) Check/Dump All ASIA Title IDs [NPHA]
 echo.
 %cocolor% 07
-echo 21) Check/Dump All HK Title IDs [BCKS]
-echo 22) Check/Dump All HK Title IDs [BLKS]
-echo 23) Check/Dump All HK Title IDs [NPKB]
-echo 24) Check/Dump All HK Title IDs [NPKA]
+echo 22) Check/Dump All HK Title IDs [BCKS]
+echo 23) Check/Dump All HK Title IDs [BLKS]
+echo 24) Check/Dump All HK Title IDs [NPKB]
+echo 25) Check/Dump All HK Title IDs [NPKA]
 echo.
 %cocolor% 04
-echo 25) Check/Dump All Internal Title IDs [NPIA]
-echo 26) Check/Dump All Internal Title IDs [NPUO]
+echo 26) Check/Dump All Internal Title IDs [NPIA]
 echo.
 %cocolor% 0d
 echo C) Enter Custom Title ID
@@ -156,26 +156,26 @@ if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNu
 ::if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=41003&&set titleIDNumberMax=41045&&set prepareToLoop=1&&goto region
 if %titleChoice%==11 set isRegion=USA&&set titleIDRegionCode=NPUB&&set prepareToLoop=1&&goto region
 if %titleChoice%==12 set isRegion=USA&&set titleIDRegionCode=NPUA&&set prepareToLoop=1&&goto region
+if %titleChoice%==13 set isRegion=USA&&set titleIDRegionCode=NPUO&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==13 set isRegion=EUR&&set titleIDRegionCode=BCES&&set prepareToLoop=1&&goto region
-if %titleChoice%==14 set isRegion=EUR&&set titleIDRegionCode=BLES&&set titleIDNumberMin=00012&&set titleIDNumberMax=02245&&set prepareToLoop=1&&goto region
-if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&set prepareToLoop=1&&goto region
-::if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=90003&&set titleIDNumberMax=90464&&set prepareToLoop=1&&goto region
-if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&set prepareToLoop=1&&goto region
-::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=90001&&set titleIDNumberMax=90112&&set prepareToLoop=1&&goto region
+if %titleChoice%==14 set isRegion=EUR&&set titleIDRegionCode=BCES&&set prepareToLoop=1&&goto region
+if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=BLES&&set titleIDNumberMin=00012&&set titleIDNumberMax=02245&&set prepareToLoop=1&&goto region
+if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&set prepareToLoop=1&&goto region
+::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=90003&&set titleIDNumberMax=90464&&set prepareToLoop=1&&goto region
+if %titleChoice%==17 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&set prepareToLoop=1&&goto region
+::if %titleChoice%==17 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=90001&&set titleIDNumberMax=90112&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==17 set isRegion=ASIA&&set titleIDRegionCode=BCAS&&set prepareToLoop=1&&goto region
-if %titleChoice%==18 set isRegion=ASIA&&set titleIDRegionCode=BLAS&&set prepareToLoop=1&&goto region
-if %titleChoice%==19 set isRegion=ASIA&&set titleIDRegionCode=NPHB&&set prepareToLoop=1&&goto region
-if %titleChoice%==20 set isRegion=ASIA&&set titleIDRegionCode=NPHA&&set prepareToLoop=1&&goto region
+if %titleChoice%==18 set isRegion=ASIA&&set titleIDRegionCode=BCAS&&set prepareToLoop=1&&goto region
+if %titleChoice%==19 set isRegion=ASIA&&set titleIDRegionCode=BLAS&&set prepareToLoop=1&&goto region
+if %titleChoice%==20 set isRegion=ASIA&&set titleIDRegionCode=NPHB&&set prepareToLoop=1&&goto region
+if %titleChoice%==21 set isRegion=ASIA&&set titleIDRegionCode=NPHA&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==21 set isRegion=HK&&set titleIDRegionCode=BCKS&&set prepareToLoop=1&&goto region
-if %titleChoice%==22 set isRegion=HK&&set titleIDRegionCode=BLKS&&set prepareToLoop=1&&goto region
-if %titleChoice%==23 set isRegion=HK&&set titleIDRegionCode=NPKB&&set prepareToLoop=1&&goto region
-if %titleChoice%==24 set isRegion=HK&&set titleIDRegionCode=NPKA&&set prepareToLoop=1&&goto region
+if %titleChoice%==22 set isRegion=HK&&set titleIDRegionCode=BCKS&&set prepareToLoop=1&&goto region
+if %titleChoice%==23 set isRegion=HK&&set titleIDRegionCode=BLKS&&set prepareToLoop=1&&goto region
+if %titleChoice%==24 set isRegion=HK&&set titleIDRegionCode=NPKB&&set prepareToLoop=1&&goto region
+if %titleChoice%==25 set isRegion=HK&&set titleIDRegionCode=NPKA&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==25 set isRegion=INT&&set titleIDRegionCode=NPIA&&set prepareToLoop=1&&goto region
-if %titleChoice%==26 set isRegion=INT&&set titleIDRegionCode=NPUO&&set prepareToLoop=1&&goto region
+if %titleChoice%==26 set isRegion=INT&&set titleIDRegionCode=NPIA&&set prepareToLoop=1&&goto region
 
 
 :: Safety Net
