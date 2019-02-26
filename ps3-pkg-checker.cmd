@@ -151,18 +151,23 @@ if %titleChoice%==6 set isRegion=JPN&&set titleIDRegionCode=NPJB&&set prepareToL
 if %titleChoice%==7 set isRegion=JPN&&set titleIDRegionCode=BLJS&&set prepareToLoop=1&&goto region
 if %titleChoice%==8 set isRegion=JPN&&set titleIDRegionCode=NPJA&&set prepareToLoop=1&&goto region
 
-if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&set titleIDNumberMin=98081&&set titleIDNumberMax=99247&&set prepareToLoop=1&&goto region
-if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=30001&&set titleIDNumberMax=31597&&set prepareToLoop=1&&goto region
+if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&set prepareToLoop=1&&goto region
+::if %titleChoice%==9 set isRegion=USA&&set titleIDRegionCode=BCUS&&set titleIDNumberMin=98081&&set titleIDNumberMax=99247&&set prepareToLoop=1&&goto region
+if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set prepareToLoop=1&&goto region
+::if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=30001&&set titleIDNumberMax=31597&&set prepareToLoop=1&&goto region
 ::if %titleChoice%==10 set isRegion=USA&&set titleIDRegionCode=BLUS&&set titleIDNumberMin=41003&&set titleIDNumberMax=41045&&set prepareToLoop=1&&goto region
 if %titleChoice%==11 set isRegion=USA&&set titleIDRegionCode=NPUB&&set prepareToLoop=1&&goto region
 if %titleChoice%==12 set isRegion=USA&&set titleIDRegionCode=NPUA&&set prepareToLoop=1&&goto region
 if %titleChoice%==13 set isRegion=USA&&set titleIDRegionCode=NPUO&&set prepareToLoop=1&&goto region
 
 if %titleChoice%==14 set isRegion=EUR&&set titleIDRegionCode=BCES&&set prepareToLoop=1&&goto region
-if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=BLES&&set titleIDNumberMin=00012&&set titleIDNumberMax=02245&&set prepareToLoop=1&&goto region
-if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&set prepareToLoop=1&&goto region
+::if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=BLES&&set titleIDNumberMin=00012&&set titleIDNumberMax=02245&&set prepareToLoop=1&&goto region
+if %titleChoice%==15 set isRegion=EUR&&set titleIDRegionCode=BLES&&set prepareToLoop=1&&goto region
+if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEB&&set prepareToLoop=1&&goto region
+::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=00001&&set titleIDNumberMax=02404&&set prepareToLoop=1&&goto region
 ::if %titleChoice%==16 set isRegion=EUR&&set titleIDRegionCode=NPEB&&goto region&&set titleIDNumberMin=90003&&set titleIDNumberMax=90464&&set prepareToLoop=1&&goto region
-if %titleChoice%==17 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&set prepareToLoop=1&&goto region
+if %titleChoice%==17 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set prepareToLoop=1&&goto region
+::if %titleChoice%==17 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=00002&&set titleIDNumberMax=00514&&set prepareToLoop=1&&goto region
 ::if %titleChoice%==17 set isRegion=EUR&&set titleIDRegionCode=NPEA&&set titleIDNumberMin=90001&&set titleIDNumberMax=90112&&set prepareToLoop=1&&goto region
 
 if %titleChoice%==18 set isRegion=ASIA&&set titleIDRegionCode=BCAS&&set prepareToLoop=1&&goto region
